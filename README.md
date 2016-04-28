@@ -24,5 +24,8 @@ Clearly the Cliq Collections Module is a modification to the existing Collection
 Equally, the whole purpose of the Module was to improve the existing Collections display by implementing the DataTables facilities.
 
 Finally, the other person to acknowledge is Jos de Jong who produces the [JSON Editor](https://github.com/josdejong/jsoneditor).
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
