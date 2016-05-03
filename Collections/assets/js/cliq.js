@@ -1,54 +1,5 @@
 // cliq.js
 sessionStorage.clear();
-var sitepath = "http://"+document.location.hostname+"/", jspath = sitepath+"admin/modules/addons/Cliq/assets/js/";  
-
-basket
-// .remove() // "","" comma separated list
-.require(
-
-    // PHP.JS
-    { url: jspath+'phpjs/var/unset.js' },
-    { url: jspath+'phpjs/var/print_r.js' },
-    { url: jspath+'phpjs/array/array_merge.js' },
-    { url: jspath+'phpjs/array/array_key_exists.js' },
-    { url: jspath+'phpjs/array/count.js' },
-    { url: jspath+'phpjs/array/each.js' },
-    { url: jspath+'phpjs/array/array_search.js' },
-    { url: jspath+'phpjs/array/array_values.js' },
-    { url: jspath+'phpjs/array/array_intersect_key.js' },
-    { url: jspath+'phpjs/array/array_flip.js' },
-    { url: jspath+'phpjs/array/array_replace.js' },
-    { url: jspath+'phpjs/array/array_replace_recursive.js' },       
-    
-    { url: jspath+'phpjs/strings/explode.js' },
-    { url: jspath+'phpjs/strings/implode.js' },
-    { url: jspath+'phpjs/strings/str_replace.js' },
-    { url: jspath+'phpjs/strings/trim.js' },
-    { url: jspath+'phpjs/strings/stripos.js' },
-    { url: jspath+'phpjs/strings/substr.js' },
-    { url: jspath+'phpjs/strings/strstr.js' },
-    { url: jspath+'phpjs/strings/strip_tags.js' }, 
-    { url: jspath+'phpjs/strings/ucwords.js' },  
-    
-    { url: jspath+'phpjs/misc/uniqid.js' },
-    { url: jspath+'phpjs/var/isset.js' },
-    { url: jspath+'phpjs/url/rawurldecode.js' },
-    { url: jspath+'phpjs/url/urlencode.js' },
-    { url: jspath+'phpjs/json/json_encode.js' },
-    { url: jspath+'phpjs/json/json_decode.js' },
-
-    { url: jspath+'phpjs/language/require.js' },
-    { url: jspath+'phpjs/language/foreach.js' },
-    
-    { url: jspath+'phpjs/url/base64_encode.js' },
-    { url: jspath+'phpjs/url/base64_decode.js' }
-
-).then(function(msg) {
-
-}, function (error) {
-    // There was an error fetching the script
-    console.log(error);
-});
 
 /***************  Utility functions that have to be available at start  *****************************************************/
 

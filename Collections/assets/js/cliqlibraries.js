@@ -447,5 +447,112 @@
 	this.data();b.effect&&b.effect.stop();if(a){a.to.length||(a.to=[a.to]);a.from.length||(a.from=[a.from]);for(var c=[],d=a.to.length,e=!0,g=this,i=(new Date).getTime(),j=function(){if(b.effect&&e){for(var f=[],k=Math.min(a.duration,(new Date).getTime()-i),l=0;l<d;l++)f.push(b.effect.easing(1,k,a.from[l],c[l],a.duration));a.frame(1==d?f[0]:f);k==a.duration?(delete b.effect,g.data(b),a.complete&&a.complete()):window.requestAnim(j)}},l=0;l<d;l++)c.push(a.to[l]-a.from[l]);b.effect=f.extend({stop:function(){e=
 	!1},easing:function(a,b,c,d,e){return d*Math.sqrt(1-(b=b/e-1)*b)+c}},a);this.data(b);j()}else delete b.effect}});f.isTouch=u;f.mouseEvents=r;f.cssPrefix=T;f.cssTransitionEnd=function(){var a,b=document.createElement("fakeelement"),c={transition:"transitionend",OTransition:"oTransitionEnd",MSTransition:"transitionend",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(a in c)if(void 0!==b.style[a])return c[a]};f.findPos=D})(jQuery);
 
+	function array_flip(trans) {
+	  //  discuss at: http://phpjs.org/functions/array_flip/
+	  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	  // improved by: Pier Paolo Ramon (http://www.mastersoup.com/)
+	  // improved by: Brett Zamir (http://brett-zamir.me)
+	  //  depends on: array
+	  //        test: skip
+	  //   example 1: array_flip( {a: 1, b: 1, c: 2} );
+	  //   returns 1: {1: 'b', 2: 'c'}
+	  //   example 2: ini_set('phpjs.return_phpjs_arrays', 'on');
+	  //   example 2: array_flip(array({a: 0}, {b: 1}, {c: 2}))[1];
+	  //   returns 2: 'b'
+
+	  var key, tmp_ar = {};
+
+	  // Duck-type check for our own array()-created PHPJS_Array
+	  if (trans && typeof trans === 'object' && trans.change_key_case) {
+		return trans.flip();
+	  }
+
+	  for (key in trans) {
+		if (!trans.hasOwnProperty(key)) {
+		  continue;
+		}
+		tmp_ar[trans[key]] = key;
+	  }
+
+	  return tmp_ar;
+	}
+	
+	function array_merge() {
+	  //  discuss at: http://phpjs.org/functions/array_merge/
+	  // original by: Brett Zamir (http://brett-zamir.me)
+	  // bugfixed by: Nate
+	  // bugfixed by: Brett Zamir (http://brett-zamir.me)
+	  //    input by: josh
+	  //   example 1: arr1 = {"color": "red", 0: 2, 1: 4}
+	  //   example 1: arr2 = {0: "a", 1: "b", "color": "green", "shape": "trapezoid", 2: 4}
+	  //   example 1: array_merge(arr1, arr2)
+	  //   returns 1: {"color": "green", 0: 2, 1: 4, 2: "a", 3: "b", "shape": "trapezoid", 4: 4}
+	  //   example 2: arr1 = []
+	  //   example 2: arr2 = {1: "data"}
+	  //   example 2: array_merge(arr1, arr2)
+	  //   returns 2: {0: "data"}
+
+	  var args = Array.prototype.slice.call(arguments),
+		argl = args.length,
+		arg,
+		retObj = {},
+		k = '',
+		argil = 0,
+		j = 0,
+		i = 0,
+		ct = 0,
+		toStr = Object.prototype.toString,
+		retArr = true;
+
+	  for (i = 0; i < argl; i++) {
+		if (toStr.call(args[i]) !== '[object Array]') {
+		  retArr = false;
+		  break;
+		}
+	  }
+
+	  if (retArr) {
+		retArr = [];
+		for (i = 0; i < argl; i++) {
+		  retArr = retArr.concat(args[i]);
+		}
+		return retArr;
+	  }
+
+	  for (i = 0, ct = 0; i < argl; i++) {
+		arg = args[i];
+		if (toStr.call(arg) === '[object Array]') {
+		  for (j = 0, argil = arg.length; j < argil; j++) {
+			retObj[ct++] = arg[j];
+		  }
+		} else {
+		  for (k in arg) {
+			if (arg.hasOwnProperty(k)) {
+			  if (parseInt(k, 10) + '' === k) {
+				retObj[ct++] = arg[k];
+			  } else {
+				retObj[k] = arg[k];
+			  }
+			}
+		  }
+		}
+	  }
+	  return retObj;
+	}
+
+	function array_key_exists(key, search) {
+	  //  discuss at: http://phpjs.org/functions/array_key_exists/
+	  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	  // improved by: Felix Geisendoerfer (http://www.debuggable.com/felix)
+	  //   example 1: array_key_exists('kevin', {'kevin': 'van Zonneveld'});
+	  //   returns 1: true
+
+	  if (!search || (search.constructor !== Array && search.constructor !== Object)) {
+		return false;
+	  }
+
+	  return key in search;
+	}
+	
 	
 // Libraries end
