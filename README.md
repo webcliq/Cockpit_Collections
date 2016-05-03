@@ -8,6 +8,27 @@ Download the ZIP file and extract the contents to a temporary directory. The sub
     Copy \Collections to \[cockpit directory]\modules\addons
     Remove \[cockpit directory]\modules\core\Collections
 
+#Installation Tip
+As a result of helpful feedback from developer users, I believe the following tip to aid installation will be helpful.
+
+As we do not yet have a working data and parameters import system and indeed, in some ways, that perverts the basic idea of a Cockpit system, it may be difficult to get to a point where you can evaluate the potential benefits of using DataTables with Cockpit without taking a few shortcuts.
+
+The problem is that DataTables generates an error when used if no columns are configured, although it happily handles the lack of data. As the Cliq_Collections Documentation explains, the columns have to be configured in the Options of the Collection and logically these need to match the fields in the Collection.
+
+For the purposes of evaluation and an aid to getting started, I propose that you do the following:
+Create 4 Collections -
+
+1. name: site, label: Configuration, field: reference
+2. name: string, label: Strings, field: reference
+3. name: help, label: Help, field: reference
+4. name: section, label: Sections, field: reference
+
+Set each one to displayed by DataTables. 
+
+Now copy (and overwrite) the four parameter files from \modules\addons\Collections\assets\parameter_files to \storage\collections.
+
+Now you should be able to refresh the Collections display and check-out a Collection, with its options and fields. Also, a DataTable should now display, albeit without any data.
+
 #Documentation
 Comprehensive documentation is provided with the module. Click on the Documentation button which will be found on the new Collections Home Page in order to read the Documentation in PDF form. The Documentation files can be found in \[cockpit directory]\modules\addons\Collections\assets\docs.
 #Helpers and Additions
