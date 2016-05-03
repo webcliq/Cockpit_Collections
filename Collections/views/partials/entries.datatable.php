@@ -257,6 +257,7 @@
 
                     // Default is View
                     default: case "view":
+                        console.log($this.collection.name, {'_id': idx});
                         App.callmodule('collections:findOne', [$this.collection.name, {'_id': idx}]).then(function(data) {
                             var options = {
                                 type: 'information',

@@ -190,6 +190,74 @@ $this->module("collections")->extend([
         return $entry;
     },
 
+    'findNextRef' => function($collection, $options) {
+
+        $collections = $this->collection($collection);
+
+        if (!$collections) return false;
+
+        $name       = $collection;
+        $collection = $collections["_id"];
+
+        $this->app->trigger('collections.find.before', [$name, &$options, false]);
+
+        $entries = (array)$this->app->storage->find("collections/{$collection}", []);
+
+        $this->app->trigger('collections.find.after', [$name, &$entries, false]);
+
+        // OK We have our Entries as an array
+        $results = array();
+        foreach ($entries as $key => $row)
+        {
+            $results[$key] = $row[$options['fldname']];
+        }
+        array_multisort($results, SORT_ASC, SORT_NATURAL, $entries);
+        // Now we have an array containing a resultset with just the values for that Fieldname, ie reference. 
+        // Sort Natural does the trick and puts them in inner numeric order
+        $lastref = end($results);
+        if(!$lastref) {
+            $nextref = $options['default'];
+        } else {
+            $a = explode("(", $lastref);
+            $lastnum = filter_var($lastref, FILTER_SANITIZE_NUMBER_INT);            
+            $nextnum = (int)$lastnum + 1;
+            $nextref = $a[0].'('.$nextnum.')'; 
+        }
+        $nextref = trim(str_replace(",", "", $nextref));        
+        return $nextref;
+    },
+
+    'isUnique' => function($collection, $options) {
+
+        $collections = $this->collection($collection);
+
+        if (!$collections) return false;
+
+        $name       = $collection;
+        $collection = $collections["_id"];
+
+        $this->app->trigger('collections.find.before', [$name, &$options, false]);
+
+        $entries = (array)$this->app->storage->find("collections/{$collection}", []);
+
+        $this->app->trigger('collections.find.after', [$name, &$entries, false]);
+
+        // OK We have our Entries as an array
+        $results = array();
+        foreach ($entries as $key => $row)
+        {
+            $results[$key] = $row[$options['fldname']];
+        }
+        array_multisort($results, SORT_ASC, SORT_NATURAL, $entries);
+        // Now we have an array containing a resultset with just the values for that Fieldname, ie reference. 
+        // Sort Natural does the trick and puts them in inner numeric order
+        $result = false;
+        foreach($results as $k => $val) {
+            if($val == $options['thisvalue']) {$result = "found"; break;};
+        }
+        return $result;
+    }, 
+
     'save' => function($collection, $data) {
 
         $collections = $this->collection($collection);
